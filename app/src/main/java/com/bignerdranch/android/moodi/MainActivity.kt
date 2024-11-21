@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     private fun onMoodSelected(mood: String) {
         // Display a confirmation message
         Toast.makeText(this, "You are feeling $mood!", Toast.LENGTH_SHORT).show()
-        // TODO: Save the mood selection (we'll implement this in the next days)
+        // TODO: Save the mood selection
     }
 }
 
