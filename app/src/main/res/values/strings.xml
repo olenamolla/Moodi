@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Moodi</string>
+    <string name="happy">Happy</string>
+    <string name="sad">Sad</string>
+    <string name="angry">Angry</string>
+    <string name="excited">Excited</string>
+    <string name="anxious">Anxious</string>
+    <string name="relaxed">Relaxed</string>
+    <string name="hello">How are you feeling today?</string>
+</resources>
