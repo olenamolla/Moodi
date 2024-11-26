@@ -7,4 +7,10 @@
     <string name="anxious">Anxious</string>
     <string name="relaxed">Relaxed</string>
     <string name="hello">How are you feeling today?</string>
+    <string name="mood_icon">Mood Icon</string>
+    <string name="mood_type">Mood Type</string>
+    <string name="date_and_time">Date &amp; Time</string>
+    <string name="note">Note</string>
+    <string name="most_frequent_mood">Most Frequent Mood: </string>
+    <string name="mood_counts">Mood Counts: </string>
 </resources>

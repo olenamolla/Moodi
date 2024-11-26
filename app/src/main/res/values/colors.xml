@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- app/src/main/res/values/colors.xml -->
 <resources>
+    <!-- Existing colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +8,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- New colors for moods -->
+    <color name="happy_color">#FFD700</color> <!-- Gold -->
+    <color name="sad_color">#1E90FF</color> <!-- Dodger Blue -->
+    <color name="angry_color">#FF4500</color> <!-- Orange Red -->
+    <color name="excited_color">#FF69B4</color> <!-- Hot Pink -->
+    <color name="anxious_color">#8A2BE2</color> <!-- Blue Violet -->
+    <color name="relaxed_color">#32CD32</color> <!-- Lime Green -->
+    <color name="neutral_color">#A9A9A9</color> <!-- Dark Gray -->
 </resources>
