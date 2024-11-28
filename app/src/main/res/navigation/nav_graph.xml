@@ -6,17 +6,17 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.bignerdranch.android.moodi.MainFragment"
+        android:name="com.bignerdranch.android.moodi.ui.MainFragment"
         android:label="Home" />
 
     <fragment
         android:id="@+id/navigation_trends"
-        android:name="com.bignerdranch.android.moodi.MoodTrendsFragment"
+        android:name="com.bignerdranch.android.moodi.ui.MoodTrendsFragment"
         android:label="Trends" />
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.bignerdranch.android.moodi.MoodHistoryFragment"
+        android:name="com.bignerdranch.android.moodi.ui.MoodHistoryFragment"
         android:label="History" />
 
 </navigation>

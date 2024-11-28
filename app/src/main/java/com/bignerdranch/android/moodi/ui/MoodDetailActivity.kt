@@ -1,5 +1,5 @@
 // app/src/main/java/com/bignerdranch/android/moodi/MoodDetailActivity.kt
-package com.bignerdranch.android.moodi
+package com.bignerdranch.android.moodi.ui
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.lifecycleScope
+import com.bignerdranch.android.moodi.R
 
 
 class MoodDetailActivity : AppCompatActivity() {

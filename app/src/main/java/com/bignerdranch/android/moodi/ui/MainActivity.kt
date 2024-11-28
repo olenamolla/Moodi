@@ -1,6 +1,6 @@
 // app/src/main/java/com/bignerdranch/android/moodi/MainActivity.kt
 
-package com.bignerdranch.android.moodi
+package com.bignerdranch.android.moodi.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +9,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import android.os.Build
 import android.content.pm.PackageManager
 import androidx.navigation.ui.setupWithNavController
-
-
+import com.bignerdranch.android.moodi.NotificationUtils
+import com.bignerdranch.android.moodi.R
 
 
 class MainActivity : AppCompatActivity() {

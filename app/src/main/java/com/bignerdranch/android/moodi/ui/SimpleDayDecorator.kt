@@ -1,4 +1,4 @@
-package com.bignerdranch.android.moodi
+package com.bignerdranch.android.moodi.ui
 
 import android.graphics.drawable.ColorDrawable
 import com.prolificinteractive.materialcalendarview.CalendarDay

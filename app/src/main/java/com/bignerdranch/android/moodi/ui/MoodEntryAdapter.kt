@@ -1,5 +1,5 @@
 // app/src/main/java/com/bignerdranch/android/moodi/MoodEntryAdapter.kt
-package com.bignerdranch.android.moodi
+package com.bignerdranch.android.moodi.ui
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +7,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bignerdranch.android.moodi.R
 import com.bignerdranch.android.moodi.data.MoodEntry
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MoodEntryAdapter(
-    private val moodEntries: List<MoodEntry>,
+    private var moodEntries: List<MoodEntry>,
     private val onItemClick: (MoodEntry) -> Unit
 ) : RecyclerView.Adapter<MoodEntryAdapter.MoodViewHolder>() {
 
@@ -22,6 +23,11 @@ class MoodEntryAdapter(
         return MoodViewHolder(view)
     }
 
+    // Add function to update list
+    fun updateMoods(newMoods: List<MoodEntry>) {
+        moodEntries = newMoods
+        notifyDataSetChanged()
+    }
     override fun onBindViewHolder(holder: MoodViewHolder, position: Int) {
         val moodEntry = moodEntries[position]
         holder.bind(moodEntry)
