@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="16dp">
 
     <!-- Mood Selection Title -->
@@ -19,7 +15,7 @@
         android:id="@+id/tvTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="32dp"
         android:gravity="center"
         android:text="@string/hello"
         android:textSize="24sp"
@@ -30,9 +26,9 @@
 
     <androidx.gridlayout.widget.GridLayout
         android:id="@+id/gridLayout"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="32dp"
         app:alignmentMode="alignMargins"
         app:columnCount="3"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -49,16 +45,18 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_column="0"
-            app:layout_row="0">
+            app:layout_row="0"
+            app:layout_gravity="center"
+            app:layout_columnWeight="1">
 
             <ImageButton
                 android:id="@+id/btnHappy"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/happy"
-                android:src="@drawable/ic_happy"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_happy" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -75,16 +73,18 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_column="1"
-            app:layout_row="0">
+            app:layout_row="0"
+            app:layout_gravity="center"
+            app:layout_columnWeight="1">
 
             <ImageButton
                 android:id="@+id/btnSad"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/sad"
-                android:src="@drawable/ic_sad"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_sad" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -101,16 +101,18 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_column="2"
-            app:layout_row="0">
+            app:layout_row="0"
+            app:layout_gravity="center"
+            app:layout_columnWeight="1">
 
             <ImageButton
                 android:id="@+id/btnAngry"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/angry"
-                android:src="@drawable/ic_angry"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_angry" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -127,16 +129,18 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_column="0"
-            app:layout_row="1">
+            app:layout_row="1"
+            app:layout_gravity="center"
+            app:layout_columnWeight="1">
 
             <ImageButton
                 android:id="@+id/btnExcited"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/excited"
-                android:src="@drawable/ic_excited"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_excited" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -153,16 +157,18 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_column="1"
-            app:layout_row="1">
+            app:layout_row="1"
+            app:layout_gravity="center"
+            app:layout_columnWeight="1">
 
             <ImageButton
                 android:id="@+id/btnAnxious"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/anxious"
-                android:src="@drawable/ic_anxious"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_anxious" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -179,16 +185,18 @@
             android:gravity="center"
             android:orientation="vertical"
             app:layout_column="2"
-            app:layout_row="1">
+            app:layout_row="1"
+            app:layout_gravity="center"
+            app:layout_columnWeight="1">
 
             <ImageButton
                 android:id="@+id/btnRelaxed"
-                android:layout_width="72dp"
-                android:layout_height="72dp"
+                android:layout_width="85dp"
+                android:layout_height="85dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/relaxed"
-                android:src="@drawable/ic_relaxed"
-                android:scaleType="centerInside"/>
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_relaxed" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -245,4 +253,4 @@
         android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
