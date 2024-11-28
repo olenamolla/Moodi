@@ -2,11 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/moodHistoryLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MoodHistoryActivity">
+    android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMoodHistory"
@@ -32,7 +29,6 @@
             android:id="@+id/tvMostFrequentMood"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/most_frequent_mood"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -40,7 +36,6 @@
             android:id="@+id/tvMoodCounts"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/mood_counts"
             android:textSize="16sp"
             android:textStyle="bold" />
 

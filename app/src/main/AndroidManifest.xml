@@ -26,15 +26,9 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MoodTrendsActivity"
-            android:exported="false"
-            android:label="Mood Trends" />
 
-        <activity
-            android:name=".MoodHistoryActivity"
-            android:exported="false"
-            android:label="Mood History" />
+
+
 
         <activity
             android:name=".MoodDetailActivity"
