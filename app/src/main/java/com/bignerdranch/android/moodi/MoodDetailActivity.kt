@@ -26,6 +26,12 @@ class MoodDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mood_detail)
 
+        // Enable the Up button (the back arrow) in the action bar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        // set a title for the action bar
+        supportActionBar?.title = "Mood Details"
+
         ivMoodIconDetail = findViewById(R.id.ivMoodIconDetail)
         tvMoodTypeDetail = findViewById(R.id.tvMoodTypeDetail)
         tvTimestampDetail = findViewById(R.id.tvTimestampDetail)
@@ -49,6 +55,12 @@ class MoodDetailActivity : AppCompatActivity() {
                 bindingMoodDetails(it)
             }
         }
+    }
+
+    // Handle Up button clicks
+    override fun onSupportNavigateUp(): Boolean {
+        finish() // This closes the activity and returns to the previous screen
+        return true
     }
 
     private fun bindingMoodDetails(moodEntry: MoodEntry) {
