@@ -25,8 +25,7 @@ class MoodHistoryFragment : Fragment() {
     private val viewModel: MoodHistoryViewModel by viewModels()
     private lateinit var rvMoodHistory: RecyclerView
     private lateinit var moodEntries: List<MoodEntry>
-    private lateinit var tvMostFrequentMood: TextView
-    private lateinit var tvMoodCounts: TextView
+    private lateinit var messageDialog: AlertDialog
     private lateinit var adapter: MoodEntryAdapter
 
     override fun onCreateView(
@@ -60,8 +59,7 @@ class MoodHistoryFragment : Fragment() {
     // NEW: Added this function to group initialization logic
     private fun initializeViews(view: View) {
         rvMoodHistory = view.findViewById(R.id.rvMoodHistory)
-        tvMostFrequentMood = view.findViewById(R.id.tvMostFrequentMood)
-        tvMoodCounts = view.findViewById(R.id.tvMoodCounts)
+        initializeMessageDialog()
 
         // NEW: Initialize moodEntries with empty list
         moodEntries = emptyList()
@@ -225,21 +223,17 @@ class MoodHistoryFragment : Fragment() {
         }
     }
 
-    private fun showMotivationalQuote() {
-        val quotes = listOf(
-            "Every storm runs out of rain. Hang in there!",
-            "Keep your face always toward the sunshine—and shadows will fall behind you.",
-            "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on."
-        )
-        lifecycleScope.launch(Dispatchers.Main) {
-            Toast.makeText(requireContext(), quotes.random(), Toast.LENGTH_LONG).show()
-        }
+    private fun initializeMessageDialog() {
+        messageDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Mood Insight")
+            .setPositiveButton("Thanks!") { dialog, _ -> dialog.dismiss() }
+            .create()
     }
 
-    private fun showPositiveAnimation() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            Toast.makeText(requireContext(), "🎉 You're doing great! 🎉", Toast.LENGTH_SHORT).show()
-        }
+    private fun showMotivationalMessage(mood: String) {
+        val message = MoodMessageManager.getMessageForMood(mood)
+        messageDialog.setMessage(message)
+        messageDialog.show()
     }
 
 }
