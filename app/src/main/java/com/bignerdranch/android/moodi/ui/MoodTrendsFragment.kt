@@ -147,6 +147,16 @@ class MoodTrendsFragment : Fragment() {
         listOf(pieChartDaily, pieChartWeekly, pieChartMonthly).forEach { chart ->
             setupModernChart(chart)
         }
+        
+        // Add titles with more context
+        pieChartDaily.centerText = "Today's\nMoods"
+        pieChartWeekly.centerText = "This Week's\nTrends"
+        pieChartMonthly.centerText = "Monthly\nOverview"
+        
+        // Enable animations
+        listOf(pieChartDaily, pieChartWeekly, pieChartMonthly).forEach { chart ->
+            chart.animateY(1400, Easing.EaseInOutQuad)
+        }
     }
 
     private fun setupModernChart(chart: PieChart) {

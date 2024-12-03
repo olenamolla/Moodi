@@ -113,6 +113,8 @@ class MainFragment : Fragment() {
         // Update UI to show selected mood (you can add this functionality later)
     }
 
+    private lateinit var messageDialog: AlertDialog
+    
     private fun saveMood(mood: String, note: String) {
         val db = AppDatabase.getDatabase(requireContext())
         lifecycleScope.launch {
@@ -124,7 +126,18 @@ class MainFragment : Fragment() {
             db.moodDao().insert(moodEntry)
             etNote.text.clear()
             selectedMood = null
-            Toast.makeText(context, "Mood saved!", Toast.LENGTH_SHORT).show()
+            
+            // Show encouraging message
+            val message = MoodMessageManager.getMessageForMood(mood)
+            showEncouragingDialog(message)
         }
+    }
+    
+    private fun showEncouragingDialog(message: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Keep Going!")
+            .setMessage(message)
+            .setPositiveButton("Thanks!") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }
