@@ -155,7 +155,7 @@ class MoodTrendsFragment : Fragment() {
         
         // Enable animations
         listOf(pieChartDaily, pieChartWeekly, pieChartMonthly).forEach { chart ->
-            chart.animateY(1400, Easing.EaseInOut)
+            chart.animateY(1400, Easing.EaseInOutQuad)
         }
     }
 
