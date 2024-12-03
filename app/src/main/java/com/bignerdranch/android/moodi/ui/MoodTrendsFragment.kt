@@ -13,7 +13,7 @@ import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.bignerdranch.android.moodi.data.MoodEntry
 import com.bignerdranch.android.moodi.viewmodel.MoodTrendsViewModel
-import com.github.mikephil.charting.animation.Easing
+import com.github.mikephil.charting.animation.Easing.EaseInOutQuad
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.data.PieData

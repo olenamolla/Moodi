@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -27,6 +29,8 @@ class MoodHistoryFragment : Fragment() {
     private lateinit var moodEntries: List<MoodEntry>
     private lateinit var messageDialog: AlertDialog
     private lateinit var adapter: MoodEntryAdapter
+    private lateinit var tvMostFrequentMood: TextView
+    private lateinit var tvMoodCounts: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,6 +63,8 @@ class MoodHistoryFragment : Fragment() {
     // NEW: Added this function to group initialization logic
     private fun initializeViews(view: View) {
         rvMoodHistory = view.findViewById(R.id.rvMoodHistory)
+        tvMostFrequentMood = view.findViewById(R.id.tvMostFrequentMood)
+        tvMoodCounts = view.findViewById(R.id.tvMoodCounts)
         initializeMessageDialog()
 
         // NEW: Initialize moodEntries with empty list
@@ -234,6 +240,16 @@ class MoodHistoryFragment : Fragment() {
         val message = MoodMessageManager.getMessageForMood(mood)
         messageDialog.setMessage(message)
         messageDialog.show()
+    }
+
+    private fun showMotivationalQuote() {
+        val message = MoodMessageManager.getMessageForMood("MOTIVATIONAL")
+        messageDialog.setMessage(message)
+        messageDialog.show()
+    }
+
+    private fun showPositiveAnimation() {
+        // Implement animation logic here if needed
     }
 
 }
