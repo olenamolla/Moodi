@@ -8,8 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.bignerdranch.android.moodi.utils.MessageDialogManager
 import androidx.fragment.app.viewModels
+import com.bignerdranch.android.moodi.utils.MoodMessageManager
 import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.moodi.R
 import com.bignerdranch.android.moodi.data.AppDatabase
@@ -113,6 +116,8 @@ class MainFragment : Fragment() {
         // Update UI to show selected mood (you can add this functionality later)
     }
 
+    private lateinit var messageDialog: AlertDialog
+    
     private fun saveMood(mood: String, note: String) {
         val db = AppDatabase.getDatabase(requireContext())
         lifecycleScope.launch {
@@ -124,7 +129,18 @@ class MainFragment : Fragment() {
             db.moodDao().insert(moodEntry)
             etNote.text.clear()
             selectedMood = null
-            Toast.makeText(context, "Mood saved!", Toast.LENGTH_SHORT).show()
+            
+            // Show encouraging message using new dialog system
+            val (title, message) = MessageDialogManager.getCheerfulMessage(mood)
+            MessageDialogManager.showMessage(requireContext(), title, message)
         }
+    }
+    
+    private fun showEncouragingDialog(message: String) {
+        AlertDialog.Builder(requireContext())
+            .setTitle("Keep Going!")
+            .setMessage(message)
+            .setPositiveButton("Thanks!") { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 }

@@ -45,3 +45,5 @@ captures/
 
 # Windows
 Thumbs.db
+.aider*
+.env

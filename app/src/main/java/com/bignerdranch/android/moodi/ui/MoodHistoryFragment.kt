@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
+import android.widget.TextView
+import com.bignerdranch.android.moodi.utils.MoodMessageManager
+import com.bignerdranch.android.moodi.utils.MessageDialogManager
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,9 +28,10 @@ class MoodHistoryFragment : Fragment() {
     private val viewModel: MoodHistoryViewModel by viewModels()
     private lateinit var rvMoodHistory: RecyclerView
     private lateinit var moodEntries: List<MoodEntry>
+    private lateinit var messageDialog: AlertDialog
+    private lateinit var adapter: MoodEntryAdapter
     private lateinit var tvMostFrequentMood: TextView
     private lateinit var tvMoodCounts: TextView
-    private lateinit var adapter: MoodEntryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +66,7 @@ class MoodHistoryFragment : Fragment() {
         rvMoodHistory = view.findViewById(R.id.rvMoodHistory)
         tvMostFrequentMood = view.findViewById(R.id.tvMostFrequentMood)
         tvMoodCounts = view.findViewById(R.id.tvMoodCounts)
+        initializeMessageDialog()
 
         // NEW: Initialize moodEntries with empty list
         moodEntries = emptyList()
@@ -130,11 +135,11 @@ class MoodHistoryFragment : Fragment() {
                         consecutiveNegative++
                         if (consecutiveNegative >= 3) {
                             withContext(Dispatchers.Main) {
-                                Toast.makeText(
+                                MessageDialogManager.showMessage(
                                     requireContext(),
-                                    "It's concerning that you've been feeling down for a while. Consider taking a break or reaching out to someone you trust.",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                    "A Caring Note",
+                                    "I notice you've been feeling down lately. Remember it's okay to take breaks and reach out to people you trust. Would you like to try some mood-lifting activities?"
+                                )
                             }
                             // Reset counter after showing message
                             consecutiveNegative = 0
@@ -225,21 +230,27 @@ class MoodHistoryFragment : Fragment() {
         }
     }
 
+    private fun initializeMessageDialog() {
+        messageDialog = AlertDialog.Builder(requireContext())
+            .setTitle("Mood Insight")
+            .setPositiveButton("Thanks!") { dialog, _ -> dialog.dismiss() }
+            .create()
+    }
+
+    private fun showMotivationalMessage(mood: String) {
+        val message = MoodMessageManager.getMessageForMood(mood)
+        messageDialog.setMessage(message)
+        messageDialog.show()
+    }
+
     private fun showMotivationalQuote() {
-        val quotes = listOf(
-            "Every storm runs out of rain. Hang in there!",
-            "Keep your face always toward the sunshine—and shadows will fall behind you.",
-            "The sun himself is weak when he first rises, and gathers strength and courage as the day gets on."
-        )
-        lifecycleScope.launch(Dispatchers.Main) {
-            Toast.makeText(requireContext(), quotes.random(), Toast.LENGTH_LONG).show()
-        }
+        val message = MoodMessageManager.getMessageForMood("MOTIVATIONAL")
+        messageDialog.setMessage(message)
+        messageDialog.show()
     }
 
     private fun showPositiveAnimation() {
-        lifecycleScope.launch(Dispatchers.Main) {
-            Toast.makeText(requireContext(), "🎉 You're doing great! 🎉", Toast.LENGTH_SHORT).show()
-        }
+        // Implement animation logic here if needed
     }
 
 }
