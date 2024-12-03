@@ -24,8 +24,8 @@ class MessageDialogManager {
             
             val view = LayoutInflater.from(context).inflate(R.layout.dialog_message, null)
             
-            view.findViewById<TextView>(R.id.tvDialogTitle).text = title
-            view.findViewById<TextView>(R.id.tvDialogMessage).text = message
+            view.findViewById<TextView>(R.id.tvDialogTitle)?.text = title
+            view.findViewById<TextView>(R.id.tvDialogMessage)?.text = message
             
             view.findViewById<Button>(R.id.btnDialogOk).setOnClickListener {
                 dialog.dismiss()
