@@ -153,9 +153,9 @@ class MoodTrendsFragment : Fragment() {
         pieChartWeekly.centerText = "This Week's\nTrends"
         pieChartMonthly.centerText = "Monthly\nOverview"
         
-        // Enable animations
+        // Enable animations with correct easing type
         listOf(pieChartDaily, pieChartWeekly, pieChartMonthly).forEach { chart ->
-            chart.animateY(1400, Easing.EaseInOut)
+            chart.animateY(1400, Easing.EaseInOutQuad)
         }
     }
 
