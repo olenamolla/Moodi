@@ -80,8 +80,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //Stats
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
