@@ -134,11 +134,11 @@ class MoodHistoryFragment : Fragment() {
                         consecutiveNegative++
                         if (consecutiveNegative >= 3) {
                             withContext(Dispatchers.Main) {
-                                Toast.makeText(
+                                MessageDialogManager.showMessage(
                                     requireContext(),
-                                    "It's concerning that you've been feeling down for a while. Consider taking a break or reaching out to someone you trust.",
-                                    Toast.LENGTH_LONG
-                                ).show()
+                                    "A Caring Note",
+                                    "I notice you've been feeling down lately. Remember it's okay to take breaks and reach out to people you trust. Would you like to try some mood-lifting activities?"
+                                )
                             }
                             // Reset counter after showing message
                             consecutiveNegative = 0

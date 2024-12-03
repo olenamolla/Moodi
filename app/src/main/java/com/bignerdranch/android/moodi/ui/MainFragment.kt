@@ -129,9 +129,9 @@ class MainFragment : Fragment() {
             etNote.text.clear()
             selectedMood = null
             
-            // Show encouraging message
-            val message = MoodMessageManager.getMessageForMood(mood)
-            showEncouragingDialog(message)
+            // Show encouraging message using new dialog system
+            val (title, message) = MessageDialogManager.getCheerfulMessage(mood)
+            MessageDialogManager.showMessage(requireContext(), title, message)
         }
     }
     
