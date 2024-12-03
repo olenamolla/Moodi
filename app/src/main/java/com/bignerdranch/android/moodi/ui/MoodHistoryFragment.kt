@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.TextView
 import com.bignerdranch.android.moodi.utils.MoodMessageManager
+import com.bignerdranch.android.moodi.utils.MessageDialogManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
