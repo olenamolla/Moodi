@@ -6,6 +6,8 @@
 
 # Local configuration file
 local.properties
+# OpenAI API Key
+openai.api.key
 
 # Android Studio
 *.iml

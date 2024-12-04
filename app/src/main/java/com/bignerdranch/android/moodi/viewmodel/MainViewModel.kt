@@ -10,8 +10,11 @@ import com.bignerdranch.android.moodi.data.MoodEntry
 import com.bignerdranch.android.moodi.repository.MoodRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import com.bignerdranch.android.moodi.utils.OpenAIAssistant
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
+    private val _aiInsight = MutableLiveData<String>()
+    val aiInsight: LiveData<String> = _aiInsight
     private val repository: MoodRepository
 
     private val _selectedMood = MutableLiveData<String?>()
@@ -40,8 +43,17 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 repository.insertMood(moodEntry)
                 _selectedMood.postValue(null)
                 _saveSuccess.postValue(true)
+
+                // Generate AI Insight
+                val insight = try {
+                    OpenAIAssistant.generateMoodInsight(mood, note)
+                } catch (e: Exception) {
+                    "Unable to generate insight. Error: ${e.localizedMessage}"
+                }
+                _aiInsight.postValue(insight)
             } catch (e: Exception) {
                 _saveSuccess.postValue(false)
+                _aiInsight.postValue("Error saving mood: ${e.localizedMessage}")
             }
         }
     }
