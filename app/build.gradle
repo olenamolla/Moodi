@@ -16,6 +16,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Add OpenAI API key as a build config field
+        buildConfigField "String", "OPENAI_API_KEY", "\"${localProperties['OPENAI_API_KEY'] ?: ''}\""
     }
     //added this
     configurations.all {
