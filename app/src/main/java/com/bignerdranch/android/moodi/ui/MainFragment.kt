@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import com.bignerdranch.android.moodi.utils.MessageDialogManager
 import androidx.fragment.app.viewModels
-import com.bignerdranch.android.moodi.utils.MoodMessageManager
 import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.moodi.R
 import com.bignerdranch.android.moodi.data.AppDatabase
 import com.bignerdranch.android.moodi.data.MoodEntry
+import com.bignerdranch.android.moodi.utils.MessageDialogManager
 import com.bignerdranch.android.moodi.viewmodel.MainViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.card.MaterialCardView
 import kotlinx.coroutines.launch
 
 class MainFragment : Fragment() {
@@ -65,6 +65,9 @@ class MainFragment : Fragment() {
     }
 
 
+    private lateinit var tvAiInsight: TextView
+    private lateinit var cardAiInsight: MaterialCardView
+
     private fun initializeViews(view: View) {
         btnHappy = view.findViewById(R.id.btnHappy)
         btnSad = view.findViewById(R.id.btnSad)
@@ -74,7 +77,10 @@ class MainFragment : Fragment() {
         btnRelaxed = view.findViewById(R.id.btnRelaxed)
         btnSubmit = view.findViewById(R.id.btnSubmit)
         etNote = view.findViewById(R.id.etNote)
+        tvAiInsight = view.findViewById(R.id.tvAiInsight)
+        cardAiInsight = view.findViewById(R.id.cardAiInsight)
     }
+
     private fun setupClickListeners() {
         btnHappy.setOnClickListener { selectMood("Happy") }
         btnSad.setOnClickListener { selectMood("Sad") }
@@ -87,21 +93,11 @@ class MainFragment : Fragment() {
             val mood = selectedMood
             val note = etNote.text.toString()
             if (mood != null) {
-                saveMood(mood, note)
+                viewModel.saveMood(mood, note)
             } else {
                 Toast.makeText(context, "Please select a mood first.", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-
-    private lateinit var tvAiInsight: TextView
-    private lateinit var cardAiInsight: MaterialCardView
-
-    private fun initializeViews(view: View) {
-        // Existing initialization code...
-        tvAiInsight = view.findViewById(R.id.tvAiInsight)
-        cardAiInsight = view.findViewById(R.id.cardAiInsight)
     }
 
     private fun observeViewModel() {
