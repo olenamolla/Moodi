@@ -231,32 +231,31 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardAiInsight"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:visibility="gone"
-        app:cardCornerRadius="8dp"
+        android:layout_margin="16dp"
+        android:clickable="true"
+        android:focusable="true"
         app:cardElevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:cardBackgroundColor="?attr/colorSecondaryVariant"
+        app:layout_constraintTop_toBottomOf="@id/btnSubmit"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnSubmit">
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/tvAiInsight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorSecondaryVariant"
-            android:padding="16dp"
-            android:text="AI Insight will appear here"
-            android:textAlignment="center"
-            android:textColor="@android:color/white"
-            android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/tvAiInsight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:ellipsize="end"
+        android:padding="16dp"
+        android:textSize="16sp"
+        android:textAlignment="center"
+        android:textColor="@android:color/white"
+        android:text="Here you will see AI-powered insight once you choose your mood. Click to expand when insight appears."/>
+
     </com.google.android.material.card.MaterialCardView>
-
-    <!-- Inside activity_main.xml, add below the Submit button -->
-
-
-    <!-- Inside activity_main.xml, add below the View History button -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

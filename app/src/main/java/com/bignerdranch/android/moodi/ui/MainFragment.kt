@@ -1,6 +1,8 @@
 package com.bignerdranch.android.moodi.ui
 
 import android.os.Bundle
+import android.transition.AutoTransition
+import android.transition.TransitionManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +26,8 @@ import kotlinx.coroutines.launch
 class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
+
+    private var isExpanded = false
 
     private lateinit var btnHappy: ImageButton
     private lateinit var btnSad: ImageButton
@@ -51,17 +55,6 @@ class MainFragment : Fragment() {
         setupClickListeners()
         observeViewModel()
 
-        // Initialize views
-        /*btnHappy = view.findViewById(R.id.btnHappy)
-        btnSad = view.findViewById(R.id.btnSad)
-        btnAngry = view.findViewById(R.id.btnAngry)
-        btnExcited = view.findViewById(R.id.btnExcited)
-        btnAnxious = view.findViewById(R.id.btnAnxious)
-        btnRelaxed = view.findViewById(R.id.btnRelaxed)
-        btnSubmit = view.findViewById(R.id.btnSubmit)
-        etNote = view.findViewById(R.id.etNote)
-
-        setupClickListeners()*/
     }
 
 
@@ -79,6 +72,13 @@ class MainFragment : Fragment() {
         etNote = view.findViewById(R.id.etNote)
         tvAiInsight = view.findViewById(R.id.tvAiInsight)
         cardAiInsight = view.findViewById(R.id.cardAiInsight)
+
+        cardAiInsight.setOnClickListener {
+            val insightText = tvAiInsight.text.toString()
+            if (insightText != "Here you will see AI-powered insight once you choose your mood. Click to expand when insight appears.") {
+                showFullInsight(insightText)
+            }
+        }
     }
 
     private fun setupClickListeners() {
@@ -145,12 +145,24 @@ class MainFragment : Fragment() {
             MessageDialogManager.showMessage(requireContext(), title, message)
         }
     }
-    
+
+    private fun toggleTextExpansion() {
+        val transition = AutoTransition()
+        transition.duration = 300
+        TransitionManager.beginDelayedTransition(cardAiInsight.parent as ViewGroup, transition)
+
+        isExpanded = !isExpanded
+        tvAiInsight.maxLines = if (isExpanded) Integer.MAX_VALUE else 3
+    }
     private fun showEncouragingDialog(message: String) {
         AlertDialog.Builder(requireContext())
             .setTitle("Keep Going!")
             .setMessage(message)
             .setPositiveButton("Thanks!") { dialog, _ -> dialog.dismiss() }
             .show()
+    }
+
+    private fun showFullInsight(insight: String) {
+        InsightDialog(requireContext(), insight).show()
     }
 }
