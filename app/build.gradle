@@ -5,6 +5,13 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+// Load local.properties
+def localPropertiesFile = rootProject.file('local.properties')
+def localProperties = new Properties()
+if (localPropertiesFile.exists()) {
+    localProperties.load(new FileInputStream(localPropertiesFile))
+}
+
 android {
     namespace 'com.bignerdranch.android.moodi'
     compileSdk 34
@@ -18,7 +25,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Add OpenAI API key as a build config field
-        buildConfigField "String", "OPENAI_API_KEY", "\"${localProperties['OPENAI_API_KEY'] ?: ''}\""
+        buildConfigField "String", "OPENAI_API_KEY", "\"${localProperties.getProperty('OPENAI_API_KEY', '')}\""
     }
     //added this
     configurations.all {
