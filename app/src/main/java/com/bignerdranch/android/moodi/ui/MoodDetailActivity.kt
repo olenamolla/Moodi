@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.moodi.R
+import com.bignerdranch.android.moodi.utils.OpenAIAssistant
 
 
 class MoodDetailActivity : AppCompatActivity() {
@@ -22,6 +23,7 @@ class MoodDetailActivity : AppCompatActivity() {
     private lateinit var tvMoodTypeDetail: TextView
     private lateinit var tvTimestampDetail: TextView
     private lateinit var tvNoteDetail: TextView
+    private lateinit var tvAIInsight: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,7 @@ class MoodDetailActivity : AppCompatActivity() {
         tvMoodTypeDetail = findViewById(R.id.tvMoodTypeDetail)
         tvTimestampDetail = findViewById(R.id.tvTimestampDetail)
         tvNoteDetail = findViewById(R.id.tvNoteDetail)
+        tvAIInsight = findViewById(R.id.tvAIInsight)
 
         val moodId = intent.getIntExtra("mood_id", -1)
         if (moodId != -1) {
@@ -72,6 +75,19 @@ class MoodDetailActivity : AppCompatActivity() {
         tvNoteDetail.text = moodEntry.note ?: "No additional notes."
 
         ivMoodIconDetail.setImageResource(getMoodIcon(moodEntry.mood))
+
+        // Fetch AI Insight
+        lifecycleScope.launch {
+            try {
+                val insight = OpenAIAssistant.generateMoodInsight(
+                    moodEntry.mood, 
+                    moodEntry.note
+                )
+                tvAIInsight.text = insight
+            } catch (e: Exception) {
+                tvAIInsight.text = "Unable to generate AI insight: ${e.message}"
+            }
+        }
     }
 
     private fun getMoodIcon(mood: String): Int {

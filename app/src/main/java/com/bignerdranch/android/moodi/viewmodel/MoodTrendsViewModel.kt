@@ -103,7 +103,7 @@ class MoodTrendsViewModel(application: Application) : AndroidViewModel(applicati
             _weeklyMoodStats.value = weeklyStats
 
             // Calculate monthly stats (last 30 days)
-            val monthAgo = today - (30 * 24 * 60 * 60 * 1000)
+            val monthAgo = today - (30L * 24 * 60 * 60 * 1000)
             val monthlyStats = calculateMoodPercentages(
                 entries.filter { it.timestamp >= monthAgo }
             )
