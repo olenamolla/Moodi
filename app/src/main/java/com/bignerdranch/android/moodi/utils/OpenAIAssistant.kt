@@ -18,10 +18,14 @@ class OpenAIAssistant {
             
             val requestBody = JSONObject().apply {
                 put("model", "gpt-3.5-turbo")
-                put("messages", JSONObject().apply {
-                    put("role", "user")
-                    put("content", prompt)
+                put("messages", JSONArray().apply {
+                    put(JSONObject().apply {
+                        put("role", "user")
+                        put("content", prompt)
+                    })
                 })
+                put("max_tokens", 100)
+                put("temperature", 0.7)
             }
 
             val request = Request.Builder()
