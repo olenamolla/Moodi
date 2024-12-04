@@ -128,7 +128,7 @@ class MainFragment : Fragment() {
 
     private lateinit var messageDialog: AlertDialog
     
-    private fun saveMood(mood: String, note: String) {
+    private fun saveMood(_: String, note: String) {
         val db = AppDatabase.getDatabase(requireContext())
         lifecycleScope.launch {
             val moodEntry = MoodEntry(

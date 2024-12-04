@@ -37,7 +37,7 @@ class MoodHistoryViewModel(application: Application) : AndroidViewModel(applicat
         }
     }
 
-    private suspend fun calculateStatistics(entries: List<MoodEntry>) {
+    private suspend fun calculateStatistics(_: List<MoodEntry>) {
         val moods = listOf("Happy", "Sad", "Angry", "Excited", "Anxious", "Relaxed")
         val counts = mutableMapOf<String, Int>()
 
