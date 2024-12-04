@@ -5,6 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.*
 import org.json.JSONObject
 import java.io.IOException
+import com.bignerdranch.android.moodi.BuildConfig
 
 class OpenAIAssistant {
     companion object {
