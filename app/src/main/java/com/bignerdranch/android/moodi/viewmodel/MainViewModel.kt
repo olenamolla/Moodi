@@ -46,11 +46,15 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 _saveSuccess.postValue(true)
 
                 // Generate AI Insight
-                val insight = OpenAIAssistant.generateMoodInsight(mood, note)
+                val insight = try {
+                    OpenAIAssistant.generateMoodInsight(mood, note)
+                } catch (e: Exception) {
+                    "Unable to generate insight. Error: ${e.localizedMessage}"
+                }
                 _aiInsight.postValue(insight)
             } catch (e: Exception) {
                 _saveSuccess.postValue(false)
-                _aiInsight.postValue("Unable to generate insight.")
+                _aiInsight.postValue("Error saving mood: ${e.localizedMessage}")
             }
         }
     }

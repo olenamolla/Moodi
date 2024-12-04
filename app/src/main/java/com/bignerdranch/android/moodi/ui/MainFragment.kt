@@ -96,10 +96,12 @@ class MainFragment : Fragment() {
 
 
     private lateinit var tvAiInsight: TextView
+    private lateinit var cardAiInsight: MaterialCardView
 
     private fun initializeViews(view: View) {
         // Existing initialization code...
         tvAiInsight = view.findViewById(R.id.tvAiInsight)
+        cardAiInsight = view.findViewById(R.id.cardAiInsight)
     }
 
     private fun observeViewModel() {
@@ -119,7 +121,7 @@ class MainFragment : Fragment() {
 
         viewModel.aiInsight.observe(viewLifecycleOwner) { insight ->
             tvAiInsight.text = insight
-            tvAiInsight.visibility = View.VISIBLE
+            cardAiInsight.visibility = if (insight.isNotBlank()) View.VISIBLE else View.GONE
         }
     }
 

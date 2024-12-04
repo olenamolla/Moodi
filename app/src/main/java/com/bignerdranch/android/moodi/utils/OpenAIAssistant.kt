@@ -8,7 +8,7 @@ import java.io.IOException
 
 class OpenAIAssistant {
     companion object {
-        private const val API_KEY = "YOUR_OPENAI_API_KEY" // Replace with actual key
+        private const val API_KEY = "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" // Actual OpenAI API key
         private const val API_URL = "https://api.openai.com/v1/chat/completions"
 
         suspend fun generateMoodInsight(mood: String, note: String? = null): String = withContext(Dispatchers.IO) {
