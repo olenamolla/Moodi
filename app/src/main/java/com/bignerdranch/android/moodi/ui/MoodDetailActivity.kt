@@ -15,8 +15,6 @@ import java.util.*
 import androidx.lifecycle.lifecycleScope
 import com.bignerdranch.android.moodi.R
 import com.bignerdranch.android.moodi.utils.OpenAIAssistant
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
 
 
 class MoodDetailActivity : AppCompatActivity() {
