@@ -95,6 +95,13 @@ class MainFragment : Fragment() {
     }
 
 
+    private lateinit var tvAiInsight: TextView
+
+    private fun initializeViews(view: View) {
+        // Existing initialization code...
+        tvAiInsight = view.findViewById(R.id.tvAiInsight)
+    }
+
     private fun observeViewModel() {
         viewModel.selectedMood.observe(viewLifecycleOwner) { mood ->
             // Update UI to show selected mood
@@ -108,6 +115,11 @@ class MainFragment : Fragment() {
             } else {
                 Toast.makeText(context, "Failed to save mood", Toast.LENGTH_SHORT).show()
             }
+        }
+
+        viewModel.aiInsight.observe(viewLifecycleOwner) { insight ->
+            tvAiInsight.text = insight
+            tvAiInsight.visibility = View.VISIBLE
         }
     }
 
