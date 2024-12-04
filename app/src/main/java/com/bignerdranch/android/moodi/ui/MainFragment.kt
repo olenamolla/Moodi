@@ -128,11 +128,11 @@ class MainFragment : Fragment() {
 
     private lateinit var messageDialog: AlertDialog
     
-    private fun saveMood(_: String, note: String) {
+    private fun saveMood(selectedMoodParam: String, note: String) {
         val db = AppDatabase.getDatabase(requireContext())
         lifecycleScope.launch {
             val moodEntry = MoodEntry(
-                mood = mood,
+                mood = selectedMoodParam,
                 timestamp = System.currentTimeMillis(),
                 note = note.ifEmpty { null }
             )
@@ -141,7 +141,7 @@ class MainFragment : Fragment() {
             selectedMood = null
             
             // Show encouraging message using new dialog system
-            val (title, message) = MessageDialogManager.getCheerfulMessage(mood)
+            val (title, message) = MessageDialogManager.getCheerfulMessage(selectedMoodParam)
             MessageDialogManager.showMessage(requireContext(), title, message)
         }
     }
