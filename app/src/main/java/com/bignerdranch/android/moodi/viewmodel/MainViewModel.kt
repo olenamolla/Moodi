@@ -11,7 +11,6 @@ import com.bignerdranch.android.moodi.repository.MoodRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import com.bignerdranch.android.moodi.utils.OpenAIAssistant
-import androidx.lifecycle.MutableLiveData
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _aiInsight = MutableLiveData<String>()
