@@ -33,15 +33,15 @@ class OpenAIAssistant {
                 .url(API_URL)
                 .addHeader("Authorization", "Bearer $API_KEY")
                 .addHeader("Content-Type", "application/json")
-                .post(RequestBody.create(MediaType.parse("application/json"), requestBody.toString()))
+                .post(RequestBody.create(MediaType.get("application/json"), requestBody.toString()))
                 .build()
 
             try {
                 val response = client.newCall(request).execute()
-                val responseBody = response.body()?.string()
+                val responseBody = response.body()
                 
                 if (response.isSuccessful && responseBody != null) {
-                    parseResponse(responseBody)
+                    parseResponse(responseBody.string())
                 } else {
                     "Unable to generate insight at this time."
                 }
