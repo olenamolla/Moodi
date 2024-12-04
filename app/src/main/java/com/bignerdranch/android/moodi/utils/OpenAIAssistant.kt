@@ -5,7 +5,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
-import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaType
 import org.json.JSONObject
 import org.json.JSONArray
 import java.io.IOException
@@ -37,12 +37,12 @@ class OpenAIAssistant {
                 .url(API_URL)
                 .addHeader("Authorization", "Bearer $API_KEY")
                 .addHeader("Content-Type", "application/json")
-                .post(RequestBody.create(MediaType.parse("application/json"), requestBody.toString()))
+                .post(RequestBody.create("application/json".toMediaType(), requestBody.toString()))
                 .build()
 
             try {
                 val response = client.newCall(request).execute()
-                val responseBody = response.body()?.string()
+                val responseBody = response.body()?.string() ?: ""
                 
                 if (response.isSuccessful && responseBody != null) {
                     parseResponse(responseBody)
