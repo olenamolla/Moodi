@@ -1,7 +1,9 @@
 package com.bignerdranch.android.moodi.ui
 
 import android.content.Intent
+import android.icu.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bignerdranch.android.moodi.R
 import com.bignerdranch.android.moodi.data.MoodEntry
+import com.bignerdranch.android.moodi.utils.OpenAIAssistant
 import com.bignerdranch.android.moodi.viewmodel.MoodHistoryViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,8 +67,7 @@ class MoodHistoryFragment : Fragment() {
     // NEW: Added this function to group initialization logic
     private fun initializeViews(view: View) {
         rvMoodHistory = view.findViewById(R.id.rvMoodHistory)
-        tvMostFrequentMood = view.findViewById(R.id.tvMostFrequentMood)
-        tvMoodCounts = view.findViewById(R.id.tvMoodCounts)
+
         initializeMessageDialog()
 
         // NEW: Initialize moodEntries with empty list
@@ -95,10 +97,7 @@ class MoodHistoryFragment : Fragment() {
         }
 
         // Observe statistics
-        viewModel.statistics.observe(viewLifecycleOwner) { (mostFrequent, counts) ->
-            tvMostFrequentMood.text = "Most Frequent Mood: ${mostFrequent ?: "N/A"}"
-            tvMoodCounts.text = "Mood Counts: ${counts.entries.joinToString(", ") { "${it.key}: ${it.value}" }}"
-        }
+
 
         // Load initial data
         viewModel.loadMoods()
@@ -115,104 +114,49 @@ class MoodHistoryFragment : Fragment() {
     private fun analyzeTrends(moodEntries: List<MoodEntry>) {
         lifecycleScope.launch {
             try {
-                val sortedEntries = moodEntries.sortedBy { it.timestamp }
+                // Get today's entries only
+                val calendar = Calendar.getInstance()
+                val startOfDay = calendar.apply {
+                    set(Calendar.HOUR_OF_DAY, 0)
+                    set(Calendar.MINUTE, 0)
+                    set(Calendar.SECOND, 0)
+                }.timeInMillis
 
-                // Define mood categories
-                val negativeMoods = listOf("Sad", "Angry", "Anxious")
-                val positiveMoods = listOf("Happy", "Excited", "Relaxed")
+                val todaysMoods = moodEntries.filter { it.timestamp >= startOfDay }
 
-                // Track mood patterns
-                var consecutiveNegative = 0
-                var improvement = 0
-                var previousMoodScore = Int.MAX_VALUE
+                if (todaysMoods.isNotEmpty()) {
+                    // Create a summary of today's moods
+                    val moodSummary = todaysMoods
+                        .groupBy { it.mood }
+                        .map { (mood, entries) -> "$mood: ${entries.size} times" }
+                        .joinToString(", ")
 
-                // Analyze mood progression
-                for (entry in sortedEntries) {
-                    val currentMoodScore = getMoodScore(entry.mood)
+                    // Get AI-generated insight
+                    val prompt = """
+                    Based on today's mood entries: $moodSummary.
+                    Please provide a caring, personalized response that:
+                    1. Acknowledges the emotional pattern
+                    2. Offers specific, helpful suggestions or encouragement
+                    3. Keeps a supportive and understanding tone
+                    Format the response with a brief title and a detailed message.
+                    Separate title and message with '|' character.
+                """.trimIndent()
 
-                    // Check negative mood streak
-                    if (negativeMoods.contains(entry.mood)) {
-                        consecutiveNegative++
-                        if (consecutiveNegative >= 3) {
-                            withContext(Dispatchers.Main) {
-                                MessageDialogManager.showMessage(
-                                    requireContext(),
-                                    "A Caring Note",
-                                    "I notice you've been feeling down lately. Remember it's okay to take breaks and reach out to people you trust. Would you like to try some mood-lifting activities?"
-                                )
-                            }
-                            // Reset counter after showing message
-                            consecutiveNegative = 0
+                    try {
+                        val aiResponse = OpenAIAssistant.generateMoodInsight(prompt)
+                        val (title, message) = aiResponse.split("|").let {
+                            Pair(it[0].trim(), it[1].trim())
                         }
-                    } else {
-                        consecutiveNegative = 0
-                    }
 
-                    // Check mood improvement
-                    if (previousMoodScore != Int.MAX_VALUE && currentMoodScore > previousMoodScore) {
-                        improvement++
-                        if (improvement >= 3) {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "You're on a roll! Great to see your positivity growing. Keep it up!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                            // Reset counter after showing message
-                            improvement = 0
+                        withContext(Dispatchers.Main) {
+                            MessageDialogManager.showMessage(requireContext(), title, message)
                         }
-                    } else {
-                        improvement = 0
-                    }
-
-                    previousMoodScore = currentMoodScore
-                }
-
-                // Analyze overall mood distribution
-                val total = sortedEntries.size
-                if (total > 0) {  // Only analyze if there are entries
-                    val positiveCount = sortedEntries.count { positiveMoods.contains(it.mood) }
-                    val negativeCount = sortedEntries.count { negativeMoods.contains(it.mood) }
-
-                    withContext(Dispatchers.Main) {
-                        when {
-                            positiveCount > total / 2 -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "You're doing amazing! Remember to celebrate these good vibes!",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-
-                            negativeCount > total / 2 -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    "Tough times don't last forever. Try doing something you love today—maybe a walk, a hobby, or a favorite meal?",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-                        }
-                    }
-
-                    // Show mood-specific messages
-                    val lastEntry = sortedEntries.lastOrNull()
-                    lastEntry?.let { entry ->
-                        when {
-                            negativeMoods.contains(entry.mood) -> showMotivationalQuote()
-                            positiveMoods.contains(entry.mood) -> showPositiveAnimation()
-                        }
+                    } catch (e: Exception) {
+                        Log.e("MoodHistory", "Error generating AI insight: ${e.message}")
                     }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(),
-                        "Error analyzing mood trends",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
             }
         }
     }

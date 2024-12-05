@@ -106,14 +106,14 @@ class MainFragment : Fragment() {
             // You can add visual feedback here
         }
 
-        viewModel.saveSuccess.observe(viewLifecycleOwner) { success ->
+        /*viewModel.saveSuccess.observe(viewLifecycleOwner) { success ->
             if (success) {
                 etNote.text.clear()
                 Toast.makeText(context, "Mood saved!", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(context, "Failed to save mood", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
 
         viewModel.aiInsight.observe(viewLifecycleOwner) { insight ->
             tvAiInsight.text = insight

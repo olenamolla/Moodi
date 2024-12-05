@@ -19,4 +19,5 @@ interface MoodDao {
 
     @Query("SELECT mood FROM mood_entries GROUP BY mood ORDER BY COUNT(mood) DESC LIMIT 1")
     suspend fun getMostFrequentMood(): String?
+
 }

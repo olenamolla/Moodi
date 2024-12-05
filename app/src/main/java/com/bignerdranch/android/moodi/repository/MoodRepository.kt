@@ -14,4 +14,5 @@ class MoodRepository(private val moodDao: MoodDao) {
     suspend fun getMoodCount(mood: String): Int = moodDao.getMoodCount(mood)
 
     suspend fun getMostFrequentMood(): String? = moodDao.getMostFrequentMood()
+
 }

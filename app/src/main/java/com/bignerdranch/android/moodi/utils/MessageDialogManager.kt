@@ -6,39 +6,40 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
 import com.bignerdranch.android.moodi.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class MessageDialogManager {
     companion object {
         private var currentDialog: Dialog? = null
 
         fun showMessage(context: Context, title: String, message: String) {
-            // Dismiss any existing dialog
-            currentDialog?.dismiss()
+            val dialog = MaterialAlertDialogBuilder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(true)
+                .create()
 
-            val dialog = Dialog(context)
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-            
-            val view = LayoutInflater.from(context).inflate(R.layout.dialog_message, null)
-            
-            val titleView = view.findViewById<TextView>(R.id.tvDialogTitle)
-            val messageView = view.findViewById<TextView>(R.id.tvDialogMessage)
-            val okButton = view.findViewById<Button>(R.id.btnDialogOk)
-            
-            titleView?.text = title
-            messageView?.text = message
-            
-            okButton?.setOnClickListener {
-                dialog.dismiss()
+            // Make dialog larger and add scrolling
+            dialog.setOnShowListener {
+                val messageView = dialog.findViewById<TextView>(android.R.id.message)
+                messageView?.apply {
+                    textSize = 16f  // Larger text
+                    val padding = context.resources.getDimensionPixelSize(R.dimen.dialog_padding)
+                    setPadding(padding, padding, padding, padding)
+                }
+
+                // Set dialog width to 90% of screen width
+                val window = dialog.window
+                val displayMetrics = context.resources.displayMetrics
+                val width = (displayMetrics.widthPixels * 0.9).toInt()
+                window?.setLayout(width, WindowManager.LayoutParams.WRAP_CONTENT)
             }
-            
-            dialog.setContentView(view)
+
             dialog.show()
-            
-            currentDialog = dialog
         }
 
         fun getCheerfulMessage(mood: String): Pair<String, String> {

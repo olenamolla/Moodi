@@ -35,6 +35,8 @@ class MoodEntryAdapter(
 
     override fun getItemCount(): Int = moodEntries.size
 
+
+
     inner class MoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val ivMoodIcon: ImageView = itemView.findViewById(R.id.ivMoodIcon)
         private val tvMoodType: TextView = itemView.findViewById(R.id.tvMoodType)
