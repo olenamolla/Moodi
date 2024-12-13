@@ -35,7 +35,7 @@ class MoodTrendsViewModel(application: Application) : AndroidViewModel(applicati
 
     // LiveData for loading state
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+
 
     init {
         val dao = AppDatabase.getDatabase(application).moodDao()

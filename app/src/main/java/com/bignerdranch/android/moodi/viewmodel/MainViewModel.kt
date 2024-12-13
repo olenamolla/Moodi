@@ -21,16 +21,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val selectedMood: LiveData<String?> = _selectedMood
 
     private val _saveSuccess = MutableLiveData<Boolean>()
-    val saveSuccess: LiveData<Boolean> = _saveSuccess
+
 
     init {
         val dao = AppDatabase.getDatabase(application).moodDao()
         repository = MoodRepository(dao)
     }
 
-    fun selectMood(mood: String) {
-        _selectedMood.value = mood
-    }
+
 
     fun saveMood(mood: String, note: String) {
         viewModelScope.launch(Dispatchers.IO) {

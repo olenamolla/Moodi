@@ -27,7 +27,7 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private var isExpanded = false
+
 
     private lateinit var btnHappy: ImageButton
     private lateinit var btnSad: ImageButton
@@ -103,17 +103,10 @@ class MainFragment : Fragment() {
     private fun observeViewModel() {
         viewModel.selectedMood.observe(viewLifecycleOwner) { mood ->
             // Update UI to show selected mood
-            // You can add visual feedback here
+
         }
 
-        /*viewModel.saveSuccess.observe(viewLifecycleOwner) { success ->
-            if (success) {
-                etNote.text.clear()
-                Toast.makeText(context, "Mood saved!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "Failed to save mood", Toast.LENGTH_SHORT).show()
-            }
-        }*/
+
 
         viewModel.aiInsight.observe(viewLifecycleOwner) { insight ->
             tvAiInsight.text = insight
@@ -123,10 +116,10 @@ class MainFragment : Fragment() {
 
     private fun selectMood(mood: String) {
         selectedMood = mood
-        // Update UI to show selected mood (you can add this functionality later)
+
     }
 
-    private lateinit var messageDialog: AlertDialog
+
     
     private fun saveMood(selectedMoodParam: String, note: String) {
         val db = AppDatabase.getDatabase(requireContext())
@@ -146,21 +139,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun toggleTextExpansion() {
-        val transition = AutoTransition()
-        transition.duration = 300
-        TransitionManager.beginDelayedTransition(cardAiInsight.parent as ViewGroup, transition)
 
-        isExpanded = !isExpanded
-        tvAiInsight.maxLines = if (isExpanded) Integer.MAX_VALUE else 3
-    }
-    private fun showEncouragingDialog(message: String) {
-        AlertDialog.Builder(requireContext())
-            .setTitle("Keep Going!")
-            .setMessage(message)
-            .setPositiveButton("Thanks!") { dialog, _ -> dialog.dismiss() }
-            .show()
-    }
 
     private fun showFullInsight(insight: String) {
         InsightDialog(requireContext(), insight).show()

@@ -48,11 +48,6 @@ class MoodHistoryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        // 2. Initialize adapter
-        /*adapter = MoodEntryAdapter(emptyList()) { moodEntry ->
-            navigateToDetail(moodEntry)
-        }*/
-
         initializeViews(view)
         // 3. Setup RecyclerView
         setupRecyclerView()
@@ -96,7 +91,6 @@ class MoodHistoryFragment : Fragment() {
             }
         }
 
-        // Observe statistics
 
 
         // Load initial data
@@ -193,8 +187,6 @@ class MoodHistoryFragment : Fragment() {
         messageDialog.show()
     }
 
-    private fun showPositiveAnimation() {
-        // Implement animation logic here if needed
-    }
+
 
 }

@@ -50,7 +50,7 @@ class MoodTrendsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initializeViews(view)
-        //calendarView = view.findViewById(R.id.calendarView)
+
         setupCalendarView()
         setupCharts()
         observeViewModel()
@@ -108,14 +108,6 @@ class MoodTrendsFragment : Fragment() {
     }
 
 
-    /*private fun loadMoodEntries() {
-        lifecycleScope.launch {
-            val moodEntries = withContext(Dispatchers.IO) {
-                db.moodDao().getAllMoods()
-            }
-            decorateCalendar(moodEntries)
-        }
-    }*/
 
 
     private fun decorateCalendar(prevailingMoods: Map<Long, String>) {
